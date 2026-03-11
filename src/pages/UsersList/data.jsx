@@ -1,0 +1,196 @@
+import { Box, Typography } from "@mui/material";
+import styles from './custome_cell.module.css'
+import userImage from '../../assets/userImage.jpg'
+
+export const row = [
+  {
+    id: 1,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Excellent",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 2,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Moderate",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 3,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Critical",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 4,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Moderate",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 5,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Excellent",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 6,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Moderate",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 7,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Excellent",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 8,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Excellent",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+  {
+    id: 9,
+    userDetails: "Ali Ahmed",
+    email: "JonSnow@gmail.com",
+    status: "Excellent",
+    lastActive: "Yesterday, 4:22 PM",
+    action: "View",
+    imageUrl: userImage
+  },
+];
+
+export const columns = [
+  { 
+    field: "id",
+    headerName: "ID",
+    width: 70 
+  },
+
+  {
+    field: "userDetails",
+    headerName: "User Details",
+    flex: 1.5,
+    renderCell: (params) => {
+      const imageUrl = params.row.imageUrl || "https://tse4.mm.bing.net/th/id/OIP.hXWwNOQw15ZVWKlMs-xv0wHaFQ?rs=1&pid=ImgDetMain&o=7&rm=3"; 
+      return (
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, lineHeight: "normal", py: 1 }}>
+          <Box
+            component="img"
+            src={imageUrl}
+            alt={params.value}
+            sx={{
+              width: 35,
+              height: 35,
+              borderRadius: "50%",
+              objectFit: "cover",
+              border: "1px solid #e0e0e0"
+            }}
+          />
+          <Typography sx={{ fontSize: "0.875rem", fontWeight: 500 }}>
+            {params.value}
+          </Typography>
+        </Box>
+      );
+    }
+  },
+
+  {
+    field: "email",
+    headerName: "Email Address",
+    flex: 1.5,
+  },
+
+  {
+    field: "status",
+    headerName: "Status",
+    flex: 1,
+    cellClassName: styles.custome_cell,
+    renderCell: (params) => {
+      const status = params.value;
+      const statuStyle = {
+        Excellent: {bg: "#DCFCE7", color: "#15803D", border: "#BBF7D0"},
+        Moderate: {bg: "#FEF3C7", color: "#B45309", border: "#FDE68A"},
+        Critical: {bg: "#FEE2E2", color: "#B91C1C", border: "#FECACA"}
+      }
+      const style = statuStyle[status];
+      return (
+      <Box
+        sx={{
+          backgroundColor: style.bg, 
+          color: style.color,
+          // px: 3,           
+          py: .7, 
+          border: `1px solid ${style.border}`,      
+          borderRadius: 50,
+          display: "inline-flex",
+          justifyContent: "center",
+          alignItems: "center",
+          lineHeight: "normal",
+          fontWeight: 500,
+          width: 100,
+        }}
+      >
+        {params.value}
+      </Box>
+    );
+  }
+  },
+
+  {
+    field: "lastActive",
+    headerName: "Last Active",
+    flex: 1
+  },
+
+  {
+    field: "action",
+    headerName: "Actions",
+    flex: 1,
+    renderCell: (params) => {
+      return (
+      <Box
+        sx={{
+          backgroundColor: "#00796B", 
+          color: "#ffffff",
+          px: 3.5,           
+          py: .9, 
+          borderRadius: 1,
+          display: "inline-flex",
+          alignItems: "center",
+          lineHeight: "normal",
+          fontWeight: 500
+        }}
+      >
+        {params.value}
+      </Box>
+    );
+  }
+  },
+];

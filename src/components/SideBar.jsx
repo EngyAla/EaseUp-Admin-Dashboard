@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from "react-router";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Box from "@mui/material/Box";
@@ -105,9 +105,9 @@ let sideBarSections = [
         "path": "/dashboard/crisisLogs"
     },
     {
-        "text": "Add Admin",
-        "icon": <PersonAddAlt1Icon />,
-        "path": "/dashboard/addAdmin"
+        "text": "Admin Management",
+        "icon": <AdminPanelSettingsIcon />,
+        "path": "/dashboard/adminManagement"
     },
     {
         "text": "Settings",
@@ -203,7 +203,9 @@ const SideBar = ({open, handleDrawerClose}) => {
                         <Typography variant="body1" sx={{color: "#64748B", fontWeight: 400, fontSize: "12px"}}>System Admin</Typography>
                     </Box>
                 </Box>
-                <LogoutIcon sx={[{color: "#94A3B8", cursor: "pointer"}, open? {display: "block"}: {display: "none"}]}/>
+                <IconButton sx={open? {display: "flex", alignItems: "center"}: {display: "none"}}>
+                    <LogoutIcon sx={[{color: "#94A3B8", cursor: "pointer"}, ]}/>
+                </IconButton>
             </Box>
         </Drawer>
     );

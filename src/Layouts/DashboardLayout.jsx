@@ -1,6 +1,5 @@
-import { createTheme, styled, ThemeProvider } from '@mui/material/styles'
-import React, { useMemo, useState } from 'react'
-import getDesignToken from '../theme'
+import {  styled } from '@mui/material/styles'
+import React, {  useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '../components/TopBar';
 import SideBar from '../components/SideBar';
@@ -19,8 +18,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const DashboardLayout = () => {
-    const  [mode, setMode] = useState(localStorage.getItem("currentMood") !== null ? localStorage.getItem("currentMood") : "light" );
-    const theme = useMemo(()=> createTheme(getDesignToken(mode)), [mode]);
     const [open, setOpen] = useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -30,19 +27,17 @@ const DashboardLayout = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Box sx={{ display: 'flex' }}>
-                <CssBaseline />
-                <AppBar setMode={setMode} handleDrawerOpen={handleDrawerOpen} open={open} />
-                <SideBar handleDrawerClose={handleDrawerClose} open={open}/>
-                <Box component={'main'} sx={{ flexGrow: 1, p: 3, backgroundColor: "#F8FAFC", height: "100vh" }}>
-                    <DrawerHeader />
-                    <Typography sx={{ marginBottom: 2}}>
-                        <Outlet />
-                    </Typography>
-                </Box>
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppBar handleDrawerOpen={handleDrawerOpen} open={open} />
+            <SideBar handleDrawerClose={handleDrawerClose} open={open}/>
+            <Box component={'main'} sx={{ flexGrow: 1, p: 3, backgroundColor: "#F8FAFC", height: "100vh" }}>
+                <DrawerHeader />
+                <Typography sx={{ marginBottom: 2}}>
+                    <Outlet />
+                </Typography>
             </Box>
-        </ThemeProvider>
+        </Box>
     )
 }
 

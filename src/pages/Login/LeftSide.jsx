@@ -3,6 +3,7 @@ import SpaIcon from '@mui/icons-material/Spa';
 import Typography from '@mui/material/Typography';
 import loginImage from '../../assets/loginImage.png'
 
+
 const LeftSide = () => {
     return (
         <Box sx={{backgroundColor: "#A3C0BEB2", height: {xs: "fit-content", md: "100vh"}, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 5, p: 3, borderRadius: {xs: "0px 0px 30px 30px", md: "0px"} }}>

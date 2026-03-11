@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from '@mui/material/Toolbar';
@@ -9,8 +8,10 @@ import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Chip from "@mui/material/Chip";
+import { useLocation } from "react-router";
 
 
+const drawerWidth = 240;
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -41,9 +42,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
 }));
 
-
-const drawerWidth = 240;
-
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
     })(({ theme }) => ({
@@ -71,8 +69,33 @@ const AppBar = styled(MuiAppBar, {
     ],
 }));
 
-const TopBar = ({ open, handleDrawerOpen, setMode }) => {
-    
+const titles = [
+    {
+        "path": "/dashboard",
+        "title": "Dashboard overview"
+    },
+    {
+        "path": "/dashboard/usersList",
+        "title": "Users Monitoring List"
+    },
+    {
+        "path": "/dashboard/crisisLogs",
+        "title": "Crisis Logs"
+    },
+    {
+        "path": "/dashboard/adminManagement",
+        "title": "Admin Management"
+    },
+    {
+        "path": "/dashboard/settings",
+        "title": "Settings"
+    },
+]
+const TopBar = ({ open, handleDrawerOpen }) => {
+    const location = useLocation();
+    const currentTitle = titles.find(
+        (title) => location.pathname === title.path
+    );
     return (
         <AppBar position="fixed" open={open}>
             <Toolbar>
@@ -90,17 +113,23 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
                 >
                 <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" noWrap component="div" color="#0F172A">
-                    Dashboard overview
-                </Typography>
+                <Box>
+                    {currentTitle && (
+                        <Typography variant="h6" noWrap component="div" color="#0F172A">
+                        {currentTitle.title}
+                        </Typography>
+                    )}
+                </Box>
                 <Box sx={{flexGrow: 1}}></Box>
-                <Box sx={{display: "flex", alignItems: "center", gap: 3}}>
-                    <Box sx={{width: 8, height: 8, borderRadius: "50%", backgroundColor: "#EC5252", position: "relative"}}>
-                        <NotificationsIcon sx={{color: "#475569", fontSize: 28, position: "absolute", left: "-25px", top: "-10px"}} />
+                <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
+                    <Box sx={{ display: "flex", position: "relative" }} >
+                        <IconButton>
+                            <NotificationsIcon sx={{color: "#475569", fontSize: 24,  }} />
+                        </IconButton>
+                        <Box sx={{ backgroundColor: "#EC5252", width: 8, height: 8, borderRadius: "50%", position: "absolute", left: "28px", top: "15px" }}></Box>
                     </Box>
                     <Chip label="System Online" variant="outlined" sx={{display: "flex", flexDirection: "row-reverse", pr: 3, pl: 1, color: "#334155"}} icon={<StyledBadge overlap="circular" variant="dot" ></StyledBadge>}  />
                 </Box>
-                
             </Toolbar>
         </AppBar>
     );
