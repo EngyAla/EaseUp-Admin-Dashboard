@@ -27,8 +27,8 @@ function App() {
           <Route path='crisisLogs' element={<CrisisLogs />} />
           <Route path='adminManagement' element={<AdminManagement />} />
           <Route path='settings' element={<SettingsPage />} />
-          <Route path='*' element={<NotFound />} />
         </Route>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     // </ThemeProvider>
   )

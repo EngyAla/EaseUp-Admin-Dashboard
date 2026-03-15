@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import styles from './custome_cell.module.css'
 import userImage from '../../assets/userImage.jpg'
+import { Link } from "react-router";
 
 export const row = [
   {
@@ -90,13 +91,15 @@ export const columns = [
   { 
     field: "id",
     headerName: "ID",
-    width: 70 
+    width: 70 ,
+    minWidth: 70
   },
 
   {
     field: "userDetails",
     headerName: "User Details",
     flex: 1.5,
+    minWidth: 170,
     renderCell: (params) => {
       const imageUrl = params.row.imageUrl || "https://tse4.mm.bing.net/th/id/OIP.hXWwNOQw15ZVWKlMs-xv0wHaFQ?rs=1&pid=ImgDetMain&o=7&rm=3"; 
       return (
@@ -125,12 +128,14 @@ export const columns = [
     field: "email",
     headerName: "Email Address",
     flex: 1.5,
+    minWidth: 200,
   },
 
   {
     field: "status",
     headerName: "Status",
     flex: 1,
+    minWidth: 220,
     cellClassName: styles.custome_cell,
     renderCell: (params) => {
       const status = params.value;
@@ -166,30 +171,34 @@ export const columns = [
   {
     field: "lastActive",
     headerName: "Last Active",
-    flex: 1
+    flex: 1,
+    minWidth: 170,
   },
 
   {
     field: "action",
     headerName: "Actions",
     flex: 1,
+    minWidth: 200,
     renderCell: (params) => {
       return (
-      <Box
-        sx={{
-          backgroundColor: "#00796B", 
-          color: "#ffffff",
-          px: 3.5,           
-          py: .9, 
-          borderRadius: 1,
-          display: "inline-flex",
-          alignItems: "center",
-          lineHeight: "normal",
-          fontWeight: 500
-        }}
-      >
-        {params.value}
-      </Box>
+      <Link>
+        <Box
+          sx={{
+            backgroundColor: "#00796B", 
+            px: 3.5,           
+            py: .9, 
+            borderRadius: 1,
+            display: "inline-flex",
+            alignItems: "center",
+            lineHeight: "normal",
+            fontWeight: 500,
+            color: "#ffffff", textDecoration: "none"
+          }}
+        >
+          {params.value}
+        </Box>
+      </Link>
     );
   }
   },

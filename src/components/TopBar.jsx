@@ -128,7 +128,7 @@ const TopBar = ({ open, handleDrawerOpen }) => {
                         </IconButton>
                         <Box sx={{ backgroundColor: "#EC5252", width: 8, height: 8, borderRadius: "50%", position: "absolute", left: "28px", top: "15px" }}></Box>
                     </Box>
-                    <Chip label="System Online" variant="outlined" sx={{display: "flex", flexDirection: "row-reverse", pr: 3, pl: 1, color: "#334155"}} icon={<StyledBadge overlap="circular" variant="dot" ></StyledBadge>}  />
+                    <Chip label="System Online" variant="outlined" sx={{display: {xs: "none", md: "flex"}, flexDirection: "row-reverse", pr: 3, pl: 1, color: "#334155"}} icon={<StyledBadge overlap="circular" variant="dot" ></StyledBadge>}  />
                 </Box>
             </Toolbar>
         </AppBar>
