@@ -31,7 +31,7 @@ const Cards = ({data}) => {
                     <CardContent sx={{ height: '100%' }}>
                         <Box sx={{display: "flex", flexDirection: "column", gap: .5}}>
                             <Box sx={{display: "flex", justifyContent: "space-between"}}>
-                                <Box sx={{color: mainColor, backgroundColor: subColor, p: 1, borderRadius: 1.5 }}>
+                                <Box sx={{color: mainColor, backgroundColor: subColor, p: .8, borderRadius: 1.5 }}>
                                     {icon}
                                 </Box>
                                 {subNumber && 
@@ -41,7 +41,7 @@ const Cards = ({data}) => {
                                 }
                             </Box>
                             <Typography variant='body2' sx={{fontSize: 16, color: mainTxtColor, mt: .7}}>{title}</Typography>
-                            <Typography variant='h5'  sx={{fontWeight: 600, mt: 1, color: mainNumColor, }}>{mainNumber}</Typography>
+                            <Typography variant='h5'  sx={{fontWeight: 700, mt: 1, color: mainNumColor, }}>{mainNumber}</Typography>
                             <Typography variant='body2' sx={{fontSize: 12, color: subTxtColor}}>{description}</Typography>
                         </Box>
                     </CardContent>

@@ -128,6 +128,13 @@ export const columns = [
     headerName: "Email Address",
     flex: 1.5,
     minWidth: 200,
+    renderCell: (params) =>{
+      return(
+        <Typography sx={{ color: "#475569", fontSize: "14px", fontWeight: 400, display: "inline-flex" }}>
+            {params.value}
+        </Typography>
+      )
+    }
   },
 
   {
@@ -138,28 +145,41 @@ export const columns = [
     renderCell: (params) => {
       const status = params.value;
       const statuStyle = {
-        Excellent: {bg: "#DCFCE7", color: "#15803D", border: "#BBF7D0"},
-        Moderate: {bg: "#FEF3C7", color: "#B45309", border: "#FDE68A"},
-        Critical: {bg: "#FEE2E2", color: "#B91C1C", border: "#FECACA"}
+        Excellent: {bg: "#DCFCE7", color: "#15803D", border: "#BBF7D0", dot: "#22C55E"},
+        Moderate: {bg: "#FEF3C7", color: "#B45309", border: "#FDE68A", dot:"#F59E0B"},
+        Critical: {bg: "#FEE2E2", color: "#B91C1C", border: "#FECACA", dot: "#EF4444"}
       }
       const style = statuStyle[status];
       return (
-      <Box
+        <Box
         sx={{
           backgroundColor: style.bg, 
           color: style.color,
-          // px: 3,           
+          px: 3,           
           py: .7, 
           border: `1px solid ${style.border}`,      
           borderRadius: 50,
           display: "inline-flex",
-          justifyContent: "center",
+          justifyContent: "space-between",
           alignItems: "center",
           lineHeight: "normal",
           fontWeight: 500,
           width: 100,
+          position: "relative",
+          "&::before": {
+            position: "absolute",
+            content: "''",
+            width: 6,
+            height: 6,
+            borderRadius: "50%",
+            top: "50%",
+            left: "10%",
+            transform: "translateY(-50%)",
+            backgroundColor: style.dot,
+        }
         }}
       >
+        <Box></Box>
         {params.value}
       </Box>
     );
@@ -171,6 +191,13 @@ export const columns = [
     headerName: "Last Active",
     flex: 1,
     minWidth: 170,
+    renderCell: (params) =>{
+      return(
+        <Typography sx={{ color: "#475569", fontSize: "14px", fontWeight: 400, display: "inline-flex" }}>
+            {params.value}
+        </Typography>
+      )
+    }
   },
 
   {
@@ -180,7 +207,7 @@ export const columns = [
     minWidth: 200,
     renderCell: (params) => {
       return (
-      <Link to={""}>
+      <Link to={""} style={{ textDecoration: "none" }}>
         <Box
           sx={{
             backgroundColor: "#00796B", 
@@ -191,7 +218,7 @@ export const columns = [
             alignItems: "center",
             lineHeight: "normal",
             fontWeight: 500,
-            color: "#ffffff", textDecoration: "none"
+            color: "#ffffff",
           }}
         >
           {params.value}
