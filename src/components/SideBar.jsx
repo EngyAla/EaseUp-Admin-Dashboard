@@ -20,6 +20,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import logo from '../assets/logo3.png'
 import Avatar from "@mui/material/Avatar";
+import { Tooltip } from "@mui/material";
 
 
 
@@ -203,9 +204,11 @@ const SideBar = ({open, handleDrawerClose}) => {
                         <Typography variant="body1" sx={{color: "#64748B", fontWeight: 400, fontSize: "12px"}}>System Admin</Typography>
                     </Box>
                 </Box>
-                <IconButton sx={open? {display: "flex", alignItems: "center"}: {display: "none"}}>
-                    <LogoutIcon sx={[{color: "#94A3B8", cursor: "pointer"}, ]}/>
-                </IconButton>
+                <Tooltip title="Logout" placement="right-start">
+                    <IconButton sx={open? {display: "flex", alignItems: "center"}: {display: "none"}}>
+                        <LogoutIcon sx={[{color: "#94A3B8", cursor: "pointer"}, ]}/>
+                    </IconButton>
+                </Tooltip>
             </Box>
         </Drawer>
     );

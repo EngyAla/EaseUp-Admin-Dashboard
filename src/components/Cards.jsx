@@ -26,7 +26,7 @@ const Cards = ({data}) => {
     } = colors;
 
     return (
-            <Card sx={{bgcolor: cardBgColor}}>
+            <Card sx={{bgcolor: cardBgColor, boxShadow: "1px 1px 5px rgba(189, 189, 189, 0.3)", }}>
                 <CardActionArea sx={{ height: '100%',}}>
                     <CardContent sx={{ height: '100%' }}>
                         <Box sx={{display: "flex", flexDirection: "column", gap: .5}}>

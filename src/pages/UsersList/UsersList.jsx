@@ -1,20 +1,19 @@
 import { Box, Grid } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { columns, row } from "./UsersListData";
+import { columns, rows } from "./UsersListData";
 import Cards from "../../components/Cards";
-import PersonIcon from '@mui/icons-material/Person';
-import BoltIcon from '@mui/icons-material/Bolt';
+import CustomDataGrid from "../../components/CustomDataGrid";
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
-import CustomFooter from "../../components/CustomFooter";
+import GroupsIcon from '@mui/icons-material/Groups';
+import InsightsIcon from '@mui/icons-material/Insights';
 
 
 const cardsData = [
     {
         title: "Total Users",
-        description: "Overall registered participants",
-        mainNumber: "1,248",
-        subNumber: "+12.5%",
-        icon: <PersonIcon sx={{ fontSize: 24 }} />,
+        // description: "Overall registered participants",
+        mainNumber: "1,240",
+        subNumber: "+5%",
+        icon: <GroupsIcon sx={{ fontSize: 24 }} />,
         colors: {
         mainColor: "#00796B",
         subColor: "#E0F2F1",
@@ -24,11 +23,11 @@ const cardsData = [
         }
     },
     {
-        title: "Active Users",
-        description: "Active in the last 24 hours",
+        title: "Active Today",
+        // description: "Stable",
         mainNumber: "856",
-        subNumber: "+8%",
-        icon: <BoltIcon sx={{ fontSize: 24 }} />,
+        // subNumber: "+8%",
+        icon: <InsightsIcon sx={{ fontSize: 24 }} />,
         colors: {
         mainColor: "#2563EB",
         subColor: "#E3F2FD",
@@ -38,9 +37,9 @@ const cardsData = [
         }
     },
     {
-        title: "Active Crisis Alerts",
-        description: "Requires immediate attention",
-        mainNumber: "3",
+        title: "Emergency Alerts",
+        // description: "Requires Attention",
+        mainNumber: <Box>12 <span style={{ fontSize: "12px", fontWeight: 500}}>Requires Attention</span></Box>,
         // subNumber: "+8%",
         icon: <ReportProblemIcon sx={{fontSize: 22}} />,
         colors: {
@@ -66,21 +65,7 @@ const UsersList = () => {
                 ))}
             </Grid>
             <Box>
-                <DataGrid sx={{ mb: 4 }}
-                rows={row}
-                columns={columns}
-                showToolbar
-                pageSizeOptions={[5, 10, 20]}
-                initialState={{
-                    pagination: {
-                    paginationModel: { pageSize: 5 }
-                    }
-                }}
-                slots={{
-                    footer: CustomFooter
-                }}
-                disableColumnMenu
-                disableRowSelectionOnClick />
+                <CustomDataGrid rows={rows} columns={columns}/>
             </Box>
         </Box>
     )

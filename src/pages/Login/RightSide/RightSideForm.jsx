@@ -8,11 +8,11 @@ const RightSideForm = () => {
     return (
         <Box component="form" sx={{width: "100%", display: "flex", flexDirection: "column", gap: 5}}>
             <Box sx={{display: "flex", flexDirection: "column", gap: 2}}>
-                <label for='email' >Email Address</label>
+                <label for='email'style={{ width: "fit-content"}}>Email Address</label>
                 <TextField type='email' id="email" variant="outlined" placeholder='admin@university.edu' color='success' sx={{width: {sm: "100%", md: "90%"}}}/>
             </Box>
             <Box sx={{display: "flex", flexDirection: "column", gap: 2}}>
-                <label for='password'>Password</label>
+                <label for='password' style={{ width: "fit-content"}}>Password</label>
                 <TextField type='password' id="password" variant="outlined" color='success' sx={{width: {sm: "100%", md: "90%"}}}/>
             </Box>
             <Link to={'/dashboard'}>

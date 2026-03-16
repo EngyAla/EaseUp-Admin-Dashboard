@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
-import styles from './custome_cell.module.css'
 import userImage from '../../assets/userImage.jpg'
 import { Link } from "react-router";
 
-export const row = [
+export const rows = [
   {
     id: 1,
     userDetails: "Ali Ahmed",
@@ -136,7 +135,6 @@ export const columns = [
     headerName: "Status",
     flex: 1,
     minWidth: 220,
-    cellClassName: styles.custome_cell,
     renderCell: (params) => {
       const status = params.value;
       const statuStyle = {
@@ -182,7 +180,7 @@ export const columns = [
     minWidth: 200,
     renderCell: (params) => {
       return (
-      <Link>
+      <Link to={""}>
         <Box
           sx={{
             backgroundColor: "#00796B", 
