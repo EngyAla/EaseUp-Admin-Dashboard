@@ -9,8 +9,9 @@ import CrisisLogs from './pages/CrisisLogs/CrisisLogs';
 import AdminManagement from './pages/AdminManagement/AdminManagement';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 // import { useMemo, useState } from 'react';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {  ThemeProvider } from '@mui/material/styles';
 // import getDesignToken from './theme';
+import {formsTheme} from "./createTheme";
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
     // const theme = useMemo(()=> createTheme(getDesignToken(mode)), [mode]);
 
   return (
-    // <ThemeProvider theme={theme}>
+    <ThemeProvider theme={formsTheme}>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/dashboard' element={<DashboardLayout />} >
@@ -30,7 +31,7 @@ function App() {
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
-    // </ThemeProvider>
+    </ThemeProvider>
   )
 }
 

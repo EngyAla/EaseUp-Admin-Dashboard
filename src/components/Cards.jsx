@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
+import { Link } from 'react-router';
 
 
 
@@ -13,6 +14,7 @@ const Cards = ({data}) => {
         mainNumber,
         subNumber,
         icon,
+        path,
         colors = {}
     } = data;
 
@@ -26,6 +28,7 @@ const Cards = ({data}) => {
     } = colors;
 
     return (
+        <Link to={path} >
             <Card sx={{bgcolor: cardBgColor, boxShadow: "1px 1px 5px rgba(189, 189, 189, 0.3)", }}>
                 <CardActionArea sx={{ height: '100%',}}>
                     <CardContent sx={{ height: '100%' }}>
@@ -47,6 +50,7 @@ const Cards = ({data}) => {
                     </CardContent>
                 </CardActionArea>
             </Card>
+        </Link>
     );
 }
 

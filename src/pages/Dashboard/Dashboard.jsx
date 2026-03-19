@@ -14,6 +14,7 @@ export default function Dashboard() {
         mainNumber: "1,248",
         subNumber: "+12.5%",
         icon: <PersonIcon sx={{ fontSize: 24 }} />,
+        path: "/dashboard/usersList",
         colors: {
         mainColor: "#00796B",
         subColor: "#E0F2F1",
@@ -42,6 +43,7 @@ export default function Dashboard() {
         mainNumber: "3",
         // subNumber: "+8%",
         icon: <ReportProblemIcon sx={{fontSize: 22}} />,
+        path: "/dashboard/crisisLogs",
         colors: {
         mainColor: "#C62828",
         subColor: "#FCEBEB",

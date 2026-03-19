@@ -31,7 +31,7 @@ const DashboardLayout = () => {
             <CssBaseline />
             <AppBar handleDrawerOpen={handleDrawerOpen} open={open} />
             <SideBar handleDrawerClose={handleDrawerClose} open={open}/>
-            <Box component={'main'} sx={{ flexGrow: 1, p: 3, backgroundColor: "#F8FAFC",
+            <Box component={'main'} sx={{ flexGrow: 1, p: 3, backgroundColor: "#F8FAFC", minHeight: "100vh",
                 minWidth: 0, // <= مهم جدااا بتخلي كل عنصر ياخد العرض المحدد له مش اكتر منه
                 }}>
                 <DrawerHeader />

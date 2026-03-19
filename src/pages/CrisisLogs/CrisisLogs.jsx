@@ -1,9 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import Cards from '../../components/Cards'
-import CustomDataGrid from '../../components/CustomDataGrid'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem';
-import GroupsIcon from '@mui/icons-material/Groups';
-import InsightsIcon from '@mui/icons-material/Insights';
+import MyDataGrid from '../../components/MyDataGrid'
 import { columns, rows } from './CrisisLogsData';
 import WarningIcon from '@mui/icons-material/Warning';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
@@ -66,7 +63,7 @@ const CrisisLogs = () => {
                 ))}
             </Grid>
             <Box>
-                <CustomDataGrid rows={rows} columns={columns}/>
+                <MyDataGrid rows={rows} columns={columns}/>
             </Box>
         </Box>
     )

@@ -12,7 +12,7 @@ export const rows = [
     },
     {
         id: 2,
-        triggerReason: "Low Mood Score",
+        triggerReason: "Negative Journal Entry",
         dateTime: "Oct 24, 10:30 AM",
         riskLevel: "Medium",
         status: "Reviewed",
@@ -28,7 +28,7 @@ export const rows = [
     },
     {
         id: 4,
-        triggerReason: "Low Mood Score",
+        triggerReason: "Negative Journal Entry",
         dateTime: "Oct 24, 10:30 AM",
         riskLevel: "Low",
         status: "Escalated",
@@ -44,7 +44,7 @@ export const rows = [
     },
     {
         id: 6,
-        triggerReason: "Low Mood Score",
+        triggerReason: "Negative Journal Entry",
         dateTime: "Oct 24, 10:30 AM",
         riskLevel: "Low",
         status: "New",

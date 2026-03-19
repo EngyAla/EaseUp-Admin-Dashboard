@@ -1,7 +1,7 @@
 import { Box, Grid } from "@mui/material";
 import { columns, rows } from "./UsersListData";
 import Cards from "../../components/Cards";
-import CustomDataGrid from "../../components/CustomDataGrid";
+import CustomDataGrid from "../../components/MyDataGrid";
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import GroupsIcon from '@mui/icons-material/Groups';
 import InsightsIcon from '@mui/icons-material/Insights';
@@ -14,6 +14,7 @@ const cardsData = [
         mainNumber: "1,240",
         subNumber: "+5%",
         icon: <GroupsIcon sx={{ fontSize: 24 }} />,
+        path: "/dashboard/usersList",
         colors: {
         mainColor: "#00796B",
         subColor: "#E0F2F1",
@@ -42,6 +43,7 @@ const cardsData = [
         mainNumber: <Box>12 <span style={{ fontSize: "12px", fontWeight: 500}}>Requires Attention</span></Box>,
         // subNumber: "+8%",
         icon: <ReportProblemIcon sx={{fontSize: 22}} />,
+        path: "/dashboard/crisisLogs",
         colors: {
         mainColor: "#C62828",
         subColor: "#FCEBEB",
