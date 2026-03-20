@@ -1,6 +1,5 @@
 import z from "zod";
 
-
 export const profileSchema = z.object({
     full_name: z.string().min(1, {message: "This Field is required"}),
     email: z.string().email(),

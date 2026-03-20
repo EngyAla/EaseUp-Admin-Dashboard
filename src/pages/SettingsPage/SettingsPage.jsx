@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Avatar, Badge, Box, Button, ButtonBase, Divider, Switch, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 // import adminImage from '../../assets/adminImage.jpg';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import { useForm } from 'react-hook-form';
@@ -11,27 +11,30 @@ import { Controller } from 'react-hook-form'
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const SettingsPage = () => {
+    const fileInputRef = useRef(null);
     const [avatarSrc, setAvatarSrc] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
-    const [fakeAdminData, setfakeAdminData] = useState({fullName: "Engy Alaa", email: "engy@gmail.com"})
-    const { handleSubmit, register, control, setValue, clearErrors, formState: {errors, isSubmitting }, reset } = useForm({
+    const [fakeAdminData, setfakeAdminData] = useState({fullName: "Engy Alaa", email: "engy@gmail.com"});
+
+    const { handleSubmit, register, control, setValue, clearErrors, reset, formState: {errors, isSubmitting } } = useForm({
         mode: 'onChange',
-        // reValidateMode: "onChange",
         resolver: zodResolver(profileSchema),
         defaultValues: {
         full_name: fakeAdminData.fullName,
         email: fakeAdminData.email,
-        password: "",      // مهم جداً
-        newPassword: "",   // مهم جداً
+        password: "",     
+        newPassword: "", 
         avatar: undefined,
         emailNotifications: true
     }
     });
+    // control used for emailNotifications switch
+    // setValue used for avatar input type file
 
     const onSubmit = ({ full_name, email, password, newPassword, avatar, emailNotifications}) =>{
         const profileData = { full_name, email, password, newPassword, avatar, emailNotifications };
         console.log("errors:", errors);
-        console.log("Submited:",profileData);
+        console.log("Submited:", profileData);
         setfakeAdminData({fullName: full_name, email: email});
         reset({full_name, email, emailNotifications});
         setIsEditing(false)
@@ -51,8 +54,8 @@ const SettingsPage = () => {
     };
     // console.log("Current Validation Errors:", errors);
     return (
-    <Box sx={{ }}>
         <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: 50 }}>
+            {/*  part 1  */}
             <Box sx={{ display: "flex", flexDirection: "column", padding: "2% 3%", boxShadow: "1px 1px 5px rgba(189, 189, 189, 0.3)",  }}>
                 <Box sx={{ display: "flex", flexDirection: "column", }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: {xs: "center", sm: "start"}, flexDirection: {xs: "column", sm: "row"}, textAlign: {xs: "center", sm: "start"}, gap: 3, mb: 1}}>
@@ -60,12 +63,13 @@ const SettingsPage = () => {
                             sx={{ borderRadius: '40px', '&:has(:focus-visible)': { outline: '2px solid', outlineOffset: '2px'}}}>
                             <Badge overlap="circular" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                 badgeContent={<Avatar sx={{ bgcolor: "#00796B", width: 22, height: 22 }}><CameraAltOutlinedIcon sx={{ fontSize: 14}}/></Avatar>}>
-                                <Avatar alt="Admin Image" src={avatarSrc} sx={{ width: 80, height: 80 }}/>
+                                <Avatar alt="Admin Image" src={avatarSrc || undefined} sx={{ width: 80, height: 80 }}/>
                             </Badge>
                             { isEditing && (
                             <>
                                 <input type="file" accept="image/*" 
                                     style={{ border: 0, clip: 'rect(0 0 0 0)', height: '1px', margin: '-1px', overflow: 'hidden', padding: 0, position: 'absolute', whiteSpace: 'nowrap', width: '1px', }}
+                                    ref={fileInputRef}
                                     onChange={handleAvatarChange}
                                 />
                             </>
@@ -80,12 +84,16 @@ const SettingsPage = () => {
                                 Upload New
                                 <input type="file" accept="image/*" 
                                     style={{ border: 0, clip: 'rect(0 0 0 0)', height: '1px', margin: '-1px', overflow: 'hidden', padding: 0, position: 'absolute', whiteSpace: 'nowrap', width: '1px', }}
+                                    ref={fileInputRef}
                                     onChange={handleAvatarChange}
                                 />
                             </Button>
                             <Button onClick={() => {
-                                setAvatarSrc(undefined)
-                                reset({ avatar: undefined })
+                                setAvatarSrc(undefined) // for ui not for zod
+                                setValue("avatar", undefined, {shouldValidate: true}) // for zod
+                                clearErrors("avatar")
+                                // in default satuation html input still save the wrong value in it عشان كده مش بيظهر الصوره الخطا لو اخترناها مرتين ورا بعض
+                                if(fileInputRef) fileInputRef.current.value = ""; // if user choose the same wrong error again, show it and show errors also
                                 }} variant="text" size="small" sx={{ color: "#64748B", textTransform: "capitalize"}}>
                                 Remove
                             </Button>
@@ -93,18 +101,21 @@ const SettingsPage = () => {
                         )}
                         </Box>
                     </Box>
-                    <Box  mb={5}>
-                        {errors.avatar && (
-                            <Typography variant='body2' sx={{ color: "#d32f2f", }}>{errors.avatar.message}</Typography>
-                        )}
+                    <Box height={70}>
+                        <Typography variant='body2' sx={{ color: "#d32f2f", }}>{errors.avatar?.message}</Typography>
                     </Box>
                 </Box>
+                {/*  part 2  */}
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: {xs: "center", sm: "start"}, flexDirection: {xs: "column", sm: "row"}, gap: 3, }}>
                     <Box flex={1} height={100}>
                         <TextField fullWidth variant="outlined" margin="dense" placeholder="Full Name" 
+                        sx={{ "& fieldset": {
+                            border: isEditing ? "" : "none",
+                            backgroundColor: isEditing ? "" : "#dddddd57",
+                        } }}
+                        // slotProps={{input: { readOnly: !isEditing && true },}}
                         type="text" id="fullName"  
                         disabled={!isEditing}
-                        // value={fakeAdminData.fullName}
                         {...register('full_name')}
                         error={!!errors.full_name}
                         />
@@ -112,9 +123,12 @@ const SettingsPage = () => {
                     </Box>
                     <Box flex={1} height={100}>
                         <TextField fullWidth variant="outlined" margin="dense" placeholder="admin@gmail.com" 
+                        sx={{ "& fieldset": {
+                            border: isEditing ? "" : "none",
+                            backgroundColor: isEditing ? "" : "#dddddd57",
+                        } }}
                         type="email" id="email"
                         disabled={!isEditing}
-                        // value={fakeAdminData.email}
                         {...register('email')}
                         error={!!errors.email}
                         />
@@ -145,6 +159,7 @@ const SettingsPage = () => {
                     </>
                 )}
             </Box>
+            {/*  part 3  */}
             <Box sx={{ boxShadow: "1px 1px 5px rgba(189, 189, 189, 0.3)", padding: "2% 3%",}}>
                 <Typography variant='body1' sx={{ color: "#0F172A", fontSize: "18px", fontWeight: 500}}>Notification Preferences</Typography>
                 <Box sx={{ display: "flex", alignItems: "center"}}>
@@ -167,6 +182,7 @@ const SettingsPage = () => {
                     />
                 </Box>
             </Box>
+            {/*  part 4  */}
             <Box sx={{ display: "flex", flexDirection: {xs: "column-reverse", sm: "row"}, justifyContent: "end", gap: 2, whiteSpace:"nowrap"}}>
                 { isEditing && 
                 <Button onClick={() => {
@@ -180,12 +196,12 @@ const SettingsPage = () => {
                     e.preventDefault()
                     setIsEditing(true)
                     clearErrors()
-                    } } } type={isEditing ? 'submit' : 'button'} disabled={isSubmitting}  variant="contained" sx={{ textTransform: "capitalize" }} >
+                    } } } 
+                    type={isEditing ? 'submit' : 'button'} disabled={isSubmitting}  variant="contained" sx={{ textTransform: "capitalize" }} >
                     { isEditing ? "Save All Settings" : "Edit your profile"}
                 </Button>
             </Box>
         </form>
-    </Box>
     )
 }
 
