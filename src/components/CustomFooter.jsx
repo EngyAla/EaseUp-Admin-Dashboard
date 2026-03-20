@@ -36,8 +36,8 @@ const CustomFooter = () => {
                 sx={{ 
                     px: 1,
                     color: "#9ca3af", 
-                    border: "1px solid #dedede", 
-                    ".MuiOutlinedInput-notchedOutline": { border: 0 },
+                    // border: "1px solid #dedede", 
+                    // ".MuiOutlinedInput-notchedOutline": { border: 0 },
                 }}
                 >
                 {[5, 10, 20].map((size) => (
