@@ -12,6 +12,7 @@ import SettingsPage from './pages/SettingsPage/SettingsPage';
 import {  ThemeProvider } from '@mui/material/styles';
 // import getDesignToken from './theme';
 import {formsTheme} from "./createTheme";
+import StudentProfile from './pages/StudentProfile/StudentProfile';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path='usersList' element={<UsersList />} />
           <Route path='crisisLogs' element={<CrisisLogs />} />
+          <Route path='studentProfile/:studentID' element={<StudentProfile />} />
           <Route path='adminManagement' element={<AdminManagement />} />
           <Route path='settings' element={<SettingsPage />} />
         </Route>

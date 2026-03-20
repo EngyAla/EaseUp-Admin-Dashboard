@@ -194,7 +194,7 @@ export const columns = [
         minWidth: 200,
         renderCell: (params) => {
         return (
-        <Link to={""} style={{ textDecoration: "none" }}>
+        <Link to={`/dashboard/studentProfile/${params.row.id}`} style={{ textDecoration: "none" }}>
             <Typography sx={{ color: "#00796B", fontSize: "16px", fontWeight: 500, display: "inline-flex" }}>
                 {params.value}
             </Typography>

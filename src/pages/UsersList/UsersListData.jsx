@@ -207,7 +207,7 @@ export const columns = [
     minWidth: 200,
     renderCell: (params) => {
       return (
-      <Link to={""} style={{ textDecoration: "none" }}>
+      <Link to={`/dashboard/studentProfile/${params.row.id}`} style={{ textDecoration: "none" }}>
         <Box
           sx={{
             backgroundColor: "#00796B", 

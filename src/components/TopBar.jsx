@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from '@mui/material/Toolbar';
@@ -8,7 +9,7 @@ import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Chip from "@mui/material/Chip";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 
 const drawerWidth = 240;
@@ -69,29 +70,35 @@ const AppBar = styled(MuiAppBar, {
     ],
 }));
 
-const titles = [
-    {
-        "path": "/dashboard",
-        "title": "Dashboard overview"
-    },
-    {
-        "path": "/dashboard/usersList",
-        "title": "Users Monitoring List"
-    },
-    {
-        "path": "/dashboard/crisisLogs",
-        "title": "Crisis Logs"
-    },
-    {
-        "path": "/dashboard/adminManagement",
-        "title": "Admin Management"
-    },
-    {
-        "path": "/dashboard/settings",
-        "title": "Settings"
-    },
-]
 const TopBar = ({ open, handleDrawerOpen }) => {
+    const { studentID } = useParams();
+    // console.log(studentID)
+    const titles = [
+        {
+            "path": "/dashboard",
+            "title": "Dashboard overview"
+        },
+        {
+            "path": "/dashboard/usersList",
+            "title": "Users Monitoring List"
+        },
+        {
+            "path": "/dashboard/crisisLogs",
+            "title": "Crisis Logs"
+        },
+        {
+            "path": "/dashboard/adminManagement",
+            "title": "Admin Management"
+        },
+        {
+            "path": "/dashboard/settings",
+            "title": "Profile Information"
+        },
+        {
+            "path": `/dashboard/studentProfile/${studentID}`,
+            "title": "Student Profile Information"
+        },
+    ];
     const location = useLocation();
     const currentTitle = titles.find(
         (title) => location.pathname === title.path
