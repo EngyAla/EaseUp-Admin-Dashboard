@@ -54,12 +54,10 @@ const StudentProfile = () => {
                 <Grid container spacing={2}>
                     <Grid size={{ xs: 12, md: 8 }}>
                         <AcademicSummaryTable />
+                        <RecentActivityTable />
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
                         <AdminNotes />
-                    </Grid>
-                    <Grid size={{ xs: 12, md: 8 }}>
-                        <RecentActivityTable />
                     </Grid>
                 </Grid>
             </Box>
