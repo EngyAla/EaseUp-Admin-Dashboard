@@ -9,7 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { useLocation, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
@@ -20,7 +20,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import logo from '../assets/logo3.png'
 import Avatar from "@mui/material/Avatar";
-import { Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 
 
 
@@ -122,6 +122,8 @@ const SideBar = ({open, handleDrawerClose}) => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    
+
     return (
         <Drawer variant="permanent" open={open} >
             <DrawerHeader>
@@ -205,7 +207,12 @@ const SideBar = ({open, handleDrawerClose}) => {
                     </Box>
                 </Box>
                 <Tooltip title="Logout" placement="right-start">
-                    <IconButton sx={open? {display: "flex", alignItems: "center"}: {display: "none"}}>
+                    <IconButton onClick={() =>{
+                            console.log("log out")
+                            localStorage.removeItem('token');
+                            navigate("/", { replace: true });
+                            }} 
+                        sx={open? {display: "flex", alignItems: "center"}: {display: "none"}}>
                         <LogoutIcon sx={[{color: "#94A3B8", cursor: "pointer"}, ]}/>
                     </IconButton>
                 </Tooltip>

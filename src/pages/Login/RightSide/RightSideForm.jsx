@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -6,6 +7,8 @@ import Box from '@mui/material/Box';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema } from '../../../validations/validLogin';
+import axiosInstance from '../../../api/axiosInstance';
+
 
 const RightSideForm = () => {
     const navigate = useNavigate();
@@ -13,11 +16,32 @@ const RightSideForm = () => {
         mode: 'onChange',
         resolver: zodResolver(loginSchema)
     });
-    const onSubmit = ({email, password}) =>{
-        const adminData = { email, password };
-        console.log(adminData);
-        reset();
-        navigate("/dashboard")
+
+    const onSubmit = async (data) =>{
+        try{
+            const response = await axiosInstance.post('Auth/login', {
+                email: data.email,
+                password: data.password,
+                rememberMe: false
+            });
+            console.log(response);
+            if(response.data.isAuthenticated){
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("role", JSON.stringify(response.data.roles));
+                reset();
+                navigate("/dashboard");
+            } else{
+                alert(response.data.message);
+            }
+        } catch(error){
+            if(error.response){
+                const serverMessage = error.response.data.message || "Invalid email or password";
+                alert(serverMessage);
+            } else{
+                alert("Network Error: Please check if the server is running.");
+            }
+            console.log("Full Error Data:", error.response?.data)
+        }
     }
 
     return (

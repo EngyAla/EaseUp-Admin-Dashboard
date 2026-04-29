@@ -19,4 +19,4 @@ const RightSideHeader = () => {
     )
 }
 
-export default RightSideHeader
+export default RightSideHeader;

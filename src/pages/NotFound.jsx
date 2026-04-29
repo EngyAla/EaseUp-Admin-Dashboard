@@ -6,7 +6,7 @@ const NotFound = () => {
         <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100vh", alignItems: "center", gap: 2, textAlign: "center", }}>
             <Typography variant='h1'
             sx={{
-                fontSize: "102px",
+                fontSize: "152px",
                 fontWeight: "bold",
                 backgroundImage: "linear-gradient(to right, #28a395, #0b8375)",
                 WebkitBackgroundClip: "text",

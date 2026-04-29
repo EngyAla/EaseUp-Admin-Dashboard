@@ -44,7 +44,7 @@ const AdminManagement = () => {
         </Button>
         <Dialog open={open} onClose={handleClose} sx={{  }}>
           <DialogTitle>Add New Admin</DialogTitle>
-          <DialogContent sx={{ width: {xs: "auto", md: "500px"}, }}>
+          <DialogContent sx={{ width: {xs: "auto", md: "600px"}, }}>
             <form onSubmit={handleSubmit(onSubmit)} id="subscription-form" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <Box sx={{ flex: 1 }}>
                 <TextField fullWidth variant="outlined" margin="dense" placeholder="Full Name"

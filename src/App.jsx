@@ -13,6 +13,7 @@ import {  ThemeProvider } from '@mui/material/styles';
 // import getDesignToken from './theme';
 import {formsTheme} from "./createTheme";
 import StudentProfile from './pages/StudentProfile/StudentProfile';
+import ProtectedRoute from './ProtectedRoute';
 
 
 function App() {
@@ -23,13 +24,15 @@ function App() {
     <ThemeProvider theme={formsTheme}>
       <Routes>
         <Route path='/' element={<Login />} />
-        <Route path='/dashboard' element={<DashboardLayout />} >
-          <Route index element={<Dashboard />} />
-          <Route path='usersList' element={<UsersList />} />
-          <Route path='crisisLogs' element={<CrisisLogs />} />
-          <Route path='studentProfile/:studentID' element={<StudentProfile />} />
-          <Route path='adminManagement' element={<AdminManagement />} />
-          <Route path='settings' element={<SettingsPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path='/dashboard' element={<DashboardLayout />} >
+            <Route index element={<Dashboard />} />
+            <Route path='usersList' element={<UsersList />} />
+            <Route path='crisisLogs' element={<CrisisLogs />} />
+            <Route path='studentProfile/:studentID' element={<StudentProfile />} />
+            <Route path='adminManagement' element={<AdminManagement />} />
+            <Route path='settings' element={<SettingsPage />} />
+          </Route>
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>
