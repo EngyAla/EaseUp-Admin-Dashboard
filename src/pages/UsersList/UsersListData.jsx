@@ -1,230 +1,232 @@
-import { Box, Typography } from "@mui/material";
-import userImage from '../../assets/userImage.jpg'
-import { Link } from "react-router";
+// // @ts-nocheck
+// import { Box, Typography } from "@mui/material";
+// import userImage from '../../assets/userImage.jpg'
+// import { Link } from "react-router";
 
-export const rows = [
-  {
-    id: 1,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Excellent",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 2,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Moderate",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 3,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Critical",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 4,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Moderate",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 5,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Excellent",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 6,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Moderate",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 7,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Excellent",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 8,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Excellent",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-  {
-    id: 9,
-    userDetails: "Ali Ahmed",
-    email: "JonSnow@gmail.com",
-    status: "Excellent",
-    lastActive: "Yesterday, 4:22 PM",
-    action: "View",
-    imageUrl: userImage
-  },
-];
 
-export const columns = [
-  { 
-    field: "id",
-    headerName: "ID",
-    width: 70 ,
-    minWidth: 70
-  },
+// export const rows = [
+//   {
+//     id: 1,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Excellent",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 2,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Moderate",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 3,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Critical",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 4,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Moderate",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 5,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Excellent",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 6,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Moderate",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 7,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Excellent",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 8,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Excellent",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+//   {
+//     id: 9,
+//     userDetails: "Ali Ahmed",
+//     email: "JonSnow@gmail.com",
+//     status: "Excellent",
+//     lastActive: "Yesterday, 4:22 PM",
+//     action: "View",
+//     imageUrl: userImage
+//   },
+// ];
 
-  {
-    field: "userDetails",
-    headerName: "User Details",
-    flex: 1.5,
-    minWidth: 170,
-    renderCell: (params) => {
-      const imageUrl = params.row.imageUrl || "https://tse4.mm.bing.net/th/id/OIP.hXWwNOQw15ZVWKlMs-xv0wHaFQ?rs=1&pid=ImgDetMain&o=7&rm=3"; 
-      return (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, lineHeight: "normal", py: 1 }}>
-          <Box
-            component="img"
-            src={imageUrl}
-            alt={params.value}
-            sx={{
-              width: 35,
-              height: 35,
-              borderRadius: "50%",
-              objectFit: "cover",
-              border: "1px solid #e0e0e0"
-            }}
-          />
-          <Typography sx={{ fontSize: "0.875rem", fontWeight: 500 }}>
-            {params.value}
-          </Typography>
-        </Box>
-      );
-    }
-  },
+// export const columns = [
+//   { 
+//     field: "id",
+//     headerName: "ID",
+//     width: 70 ,
+//     minWidth: 70
+//   },
 
-  {
-    field: "email",
-    headerName: "Email Address",
-    flex: 1.5,
-    minWidth: 200,
-    renderCell: (params) =>{
-      return(
-        <Typography sx={{ color: "#475569", fontSize: "14px", fontWeight: 400, display: "inline-flex" }}>
-            {params.value}
-        </Typography>
-      )
-    }
-  },
+//   {
+//     field: "userDetails",
+//     headerName: "User Details",
+//     flex: 1.5,
+//     minWidth: 170,
+//     renderCell: (params) => {
+//       const imageUrl = params.row.imageUrl || "https://tse4.mm.bing.net/th/id/OIP.hXWwNOQw15ZVWKlMs-xv0wHaFQ?rs=1&pid=ImgDetMain&o=7&rm=3"; 
+//       return (
+//         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, lineHeight: "normal", py: 1 }}>
+//           <Box
+//             component="img"
+//             src={imageUrl}
+//             alt={params.value}
+//             sx={{
+//               width: 35,
+//               height: 35,
+//               borderRadius: "50%",
+//               objectFit: "cover",
+//               border: "1px solid #e0e0e0"
+//             }}
+//           />
+//           <Typography sx={{ fontSize: "0.875rem", fontWeight: 500 }}>
+//             {params.value}
+//           </Typography>
+//         </Box>
+//       );
+//     }
+//   },
 
-  {
-    field: "status",
-    headerName: "Status",
-    flex: 1,
-    minWidth: 220,
-    renderCell: (params) => {
-      const status = params.value;
-      const statuStyle = {
-        Excellent: {bg: "#DCFCE7", color: "#15803D", border: "#BBF7D0", dot: "#22C55E"},
-        Moderate: {bg: "#FEF3C7", color: "#B45309", border: "#FDE68A", dot:"#F59E0B"},
-        Critical: {bg: "#FEE2E2", color: "#B91C1C", border: "#FECACA", dot: "#EF4444"}
-      }
-      const style = statuStyle[status];
-      return (
-        <Box
-        sx={{
-          backgroundColor: style.bg, 
-          color: style.color,
-          px: 3,           
-          py: .7, 
-          border: `1px solid ${style.border}`,      
-          borderRadius: 50,
-          display: "inline-flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          lineHeight: "normal",
-          fontWeight: 500,
-          width: 100,
-          position: "relative",
-          "&::before": {
-            position: "absolute",
-            content: "''",
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            top: "50%",
-            left: "10%",
-            transform: "translateY(-50%)",
-            backgroundColor: style.dot,
-        }
-        }}
-      >
-        <Box></Box>
-        {params.value}
-      </Box>
-    );
-  }
-  },
+//   {
+//     field: "email",
+//     headerName: "Email Address",
+//     flex: 1.5,
+//     minWidth: 200,
+//     renderCell: (params) =>{
+//       return(
+//         <Typography sx={{ color: "#475569", fontSize: "14px", fontWeight: 400, display: "inline-flex" }}>
+//             {params.value}
+//         </Typography>
+//       )
+//     }
+//   },
 
-  {
-    field: "lastActive",
-    headerName: "Last Active",
-    flex: 1,
-    minWidth: 170,
-    renderCell: (params) =>{
-      return(
-        <Typography sx={{ color: "#475569", fontSize: "14px", fontWeight: 400, display: "inline-flex" }}>
-            {params.value}
-        </Typography>
-      )
-    }
-  },
+//   {
+//     field: "status",
+//     headerName: "Status",
+//     flex: 1,
+//     minWidth: 220,
+//     renderCell: (params) => {
+//       const status = params.value;
+//       const statuStyle = {
+//         Excellent: {bg: "#DCFCE7", color: "#15803D", border: "#BBF7D0", dot: "#22C55E"},
+//         Moderate: {bg: "#FEF3C7", color: "#B45309", border: "#FDE68A", dot:"#F59E0B"},
+//         Critical: {bg: "#FEE2E2", color: "#B91C1C", border: "#FECACA", dot: "#EF4444"}
+//       }
+//       const style = statuStyle[status];
+//       return (
+//         <Box
+//         sx={{
+//           backgroundColor: style.bg, 
+//           color: style.color,
+//           px: 3,           
+//           py: .7, 
+//           border: `1px solid ${style.border}`,      
+//           borderRadius: 50,
+//           display: "inline-flex",
+//           justifyContent: "space-between",
+//           alignItems: "center",
+//           lineHeight: "normal",
+//           fontWeight: 500,
+//           width: 100,
+//           position: "relative",
+//           "&::before": {
+//             position: "absolute",
+//             content: "''",
+//             width: 6,
+//             height: 6,
+//             borderRadius: "50%",
+//             top: "50%",
+//             left: "10%",
+//             transform: "translateY(-50%)",
+//             backgroundColor: style.dot,
+//         }
+//         }}
+//       >
+//         <Box></Box>
+//         {params.value}
+//       </Box>
+//     );
+//   }
+//   },
 
-  {
-    field: "action",
-    headerName: "Actions",
-    flex: 1,
-    minWidth: 200,
-    renderCell: (params) => {
-      return (
-      <Link to={`/dashboard/studentProfile/${params.row.id}`} style={{ textDecoration: "none" }}>
-        <Box
-          sx={{
-            backgroundColor: "#00796B", 
-            px: 3.5,           
-            py: .9, 
-            borderRadius: 1,
-            display: "inline-flex",
-            alignItems: "center",
-            lineHeight: "normal",
-            fontWeight: 500,
-            color: "#ffffff",
-          }}
-        >
-          {params.value}
-        </Box>
-      </Link>
-    );
-  }
-  },
-];
+//   {
+//     field: "lastActive",
+//     headerName: "Last Active",
+//     flex: 1,
+//     minWidth: 170,
+//     renderCell: (params) =>{
+//       return(
+//         <Typography sx={{ color: "#475569", fontSize: "14px", fontWeight: 400, display: "inline-flex" }}>
+//             {params.value}
+//         </Typography>
+//       )
+//     }
+//   },
+
+//   {
+//     field: "action",
+//     headerName: "Actions",
+//     flex: 1,
+//     minWidth: 200,
+//     renderCell: (params) => {
+//       return (
+//       <Link to={`/dashboard/studentProfile/${params.row.id}`} style={{ textDecoration: "none" }}>
+//         <Box
+//           sx={{
+//             backgroundColor: "#00796B", 
+//             px: 3.5,           
+//             py: .9, 
+//             borderRadius: 1,
+//             display: "inline-flex",
+//             alignItems: "center",
+//             lineHeight: "normal",
+//             fontWeight: 500,
+//             color: "#ffffff",
+//           }}
+//         >
+//           {params.value}
+//         </Box>
+//       </Link>
+//     );
+//   }
+//   },
+// ];

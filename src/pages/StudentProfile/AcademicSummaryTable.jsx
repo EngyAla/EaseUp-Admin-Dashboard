@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, Typography } from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,17 +11,17 @@ function createData(Metric, Details) {
     return { Metric, Details };
 }
 
-const rows = [
-    createData('Registration Date', "September 12, 2023"),
-    createData('Last Activity', "September 12, 2023"),
-    createData('Total Goals Completed', "September 12, 2023"),
-    createData('Total Goals Completed', "September 12, 2023"),
-    createData('Total Goals Completed', "September 12, 2023"),
-    createData('Total Goals Completed', "September 12, 2023"),
-];
 
 
-const AcademicSummaryTable = () => {
+
+const AcademicSummaryTable = ({ studentData }) => {
+    const rows = [
+        createData('University', studentData.university),
+        createData('Department', studentData.department),
+        createData('Academic Year', studentData.academicYear),
+        createData('Current GPA', studentData.currentGPA),
+        createData('Has Scolarship', studentData.hasScolarship == false ? "No" : "Yes"),
+    ];
     return (
         <Box>
             <Typography variant='body2' sx={{ color: "#00796B", fontSize: "18px", fontWeight: 600, mt: 5, mb: 1 }}>Academic Summary</Typography>

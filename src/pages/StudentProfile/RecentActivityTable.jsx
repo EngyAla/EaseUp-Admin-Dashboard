@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, Typography } from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -6,21 +7,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-function createData(Type, Result, Date, Status) {
-    return { Type, Result, Date, Status };
+function createData(Type, Result) {
+    return { Type, Result };
 }
 
-const rows = [
-    createData('Daily Survey', "15 minutes session", "Oct 23, 2023", "Completed"),
-    createData('Daily Survey', "15 minutes session", "Oct 23, 2023", "Completed"),
-    createData('Daily Survey', "15 minutes session", "Oct 23, 2023", "Completed"),
-    createData('Daily Survey', "15 minutes session", "Oct 23, 2023", "Completed"),
-    createData('Daily Survey', "15 minutes session", "Oct 23, 2023", "Completed"),
-    createData('Daily Survey', "15 minutes session", "Oct 23, 2023", "Completed"),
-];
 
 
-const RecentActivityTable = () => {
+
+const RecentActivityTable = ({ studentData }) => {
+    const rows = [
+        createData('Total Exercise Score', studentData.total_Exercise_Score),
+        createData('Goals Count', studentData.goalsCount),
+        createData('Goals Achieved', studentData.goalsAchieved),
+        createData('Goals Achieveds', studentData.goalsAchieveds.length == 0 ? "None yet" : studentData.goalsAchieveds.join(" - ")),
+    ];
     return (
         <Box>
             <Typography variant='body2' sx={{ color: "#00796B", fontSize: "18px", fontWeight: 600, mt: 5, mb: 1 }}>Recent Activity</Typography>
@@ -31,8 +31,6 @@ const RecentActivityTable = () => {
                             <TableRow>
                                 <TableCell sx={{ color: "#3d4858", bgcolor: "#eef1f4" }}>Type</TableCell>
                                 <TableCell sx={{ color: "#3d4858", bgcolor: "#eef1f4" }}>Result/Details</TableCell>
-                                <TableCell sx={{ color: "#3d4858", bgcolor: "#eef1f4" }}>Date</TableCell>
-                                <TableCell sx={{ color: "#3d4858", bgcolor: "#eef1f4" }}>Status</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -45,8 +43,6 @@ const RecentActivityTable = () => {
                                 {row.Type}
                             </TableCell>
                             <TableCell sx={{ color: "#00796B", }}>{row.Result}</TableCell>
-                            <TableCell sx={{ color: "#00796B", }}>{row.Date}</TableCell>
-                            <TableCell sx={{ color: "#00796B", }}>{row.Status}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>

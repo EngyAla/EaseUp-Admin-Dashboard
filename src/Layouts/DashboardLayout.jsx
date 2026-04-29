@@ -35,9 +35,9 @@ const DashboardLayout = () => {
                 minWidth: 0, // <= مهم جدااا بتخلي كل عنصر ياخد العرض المحدد له مش اكتر منه
                 }}>
                 <DrawerHeader />
-                <Typography sx={{ marginBottom: 2}}>
+                <Box sx={{ marginBottom: 2}}>
                     <Outlet />
-                </Typography>
+                </Box>
             </Box>
         </Box>
     )

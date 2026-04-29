@@ -3,15 +3,19 @@ import Grid from '@mui/material/Grid';
 import PersonIcon from '@mui/icons-material/Person';
 import BoltIcon from '@mui/icons-material/Bolt';
 import ReportProblemIcon from '@mui/icons-material/ReportProblem';
+import { useContext } from 'react';
+import { OverviewContext } from '../../Context/Overview/OverviewContext';
 
 
 
 export default function Dashboard() {
+    const { overviewData } = useContext(OverviewContext);
+    
     const cardsData = [
     {
         title: "Total Users",
         description: "Overall registered participants",
-        mainNumber: "1,248",
+        mainNumber: overviewData.users,
         subNumber: "+12.5%",
         icon: <PersonIcon sx={{ fontSize: 24 }} />,
         path: "/dashboard/usersList",
@@ -26,7 +30,7 @@ export default function Dashboard() {
     {
         title: "Active Users",
         description: "Active in the last 24 hours",
-        mainNumber: "856",
+        mainNumber: overviewData.activeUsers,
         subNumber: "+8%",
         icon: <BoltIcon sx={{ fontSize: 24 }} />,
         colors: {
@@ -40,7 +44,7 @@ export default function Dashboard() {
     {
         title: "Active Crisis Alerts",
         description: "Requires immediate attention",
-        mainNumber: "3",
+        mainNumber: overviewData.crisisUsers,
         // subNumber: "+8%",
         icon: <ReportProblemIcon sx={{fontSize: 22}} />,
         path: "/dashboard/crisisLogs",
