@@ -1,22 +1,39 @@
+// @ts-nocheck
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { updatedNoteSchema } from '../../validations/validAdminNote';
+import axiosInstance from '../../api/axiosInstance';
 
-const AdminNotes = () => {
+const AdminNotes = ({ studentData }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [currentNote, setCurrentNote] = useState('Showing excellent progress in Advanced Calculus. Active participant in laboratorysessions.');
+
+    const storageKey = `admin_note_${studentData.id}`;
+    const [currentNote, setCurrentNote] = useState(() => {
+        // أول ما الـ component يحمل، يشوف فيه نوتس متسجلة للطالب ده ولا لأ
+        return localStorage.getItem(storageKey) || "";
+    });
 
     const { handleSubmit, register, formState: {errors, isSubmitting }, reset } = useForm({
         mode: 'onChange',
         resolver: zodResolver(updatedNoteSchema)
     });
-    const onSubmit = ({updatedNote}) =>{
+    const onSubmit = async ({updatedNote}) =>{
         setCurrentNote(updatedNote);
         setIsEditing(false)
-        // console.log(updatedNote);
-        reset();
+        try {
+            await axiosInstance.put(`Admins/update-current-note?studentId=${studentData.id}&updated_Note=${updatedNote}`);
+
+            // لو نجح، احفظيها في المتصفح
+            localStorage.setItem(storageKey, updatedNote);
+            
+            setCurrentNote(updatedNote);
+            setIsEditing(false);
+            reset({ updatedNote: updatedNote });
+        } catch (error) {
+            console.error("Update Note Error:", error);
+        }
     }
 
     return (
@@ -25,14 +42,26 @@ const AdminNotes = () => {
                 Admin Notes
             </Typography>
             <Box  sx={{ padding: "2% 3%", boxShadow: "1px 1px 5px rgba(189, 189, 189, 0.3)", }}>
-                <Typography variant='body2' sx={{ color: "#64748B", fontSize: "16px", fontWeight: 600, mb: 1}}>
-                    Current Note
-                </Typography>
-                <Box sx={{ bgcolor: "#eef1f4", borderRadius: 1 }}>
-                    <Typography variant='body2' sx={{ color: "#475569", mb: 2, p: 1.5,  }}>
-                        "{currentNote}"
-                    </Typography>
-                </Box>
+                { currentNote !== "" ? (
+                    <>
+                        <Typography variant='body2' sx={{ color: "#64748B", fontSize: "16px", fontWeight: 600, mb: 1}}>
+                            Current Note
+                        </Typography>
+                        <Box sx={{ bgcolor: "#eef1f4", borderRadius: 1 }}>
+                            <Typography variant='body2' sx={{ color: "#475569", mb: 2, p: 1.5,  }}>
+                                "{currentNote}"
+                            </Typography>
+                        </Box>
+                    </>) : (
+                        !isEditing &&(
+                            <Box sx={{ bgcolor: "#eef1f4", borderRadius: 1 }}>
+                                <Typography variant='body2' sx={{ color: "#475569", mb: 2, p: 1.5, textAlign: "center" }}>
+                                    "Add Some Notes."
+                                </Typography>
+                            </Box>
+                        )
+                    )
+                }
                 { isEditing && (
                     <>
                     <Typography variant='body2' sx={{ color: "#64748B", fontSize: "16px", fontWeight: 600, mb: 1, mt: 2}}>
@@ -56,7 +85,7 @@ const AdminNotes = () => {
                     setIsEditing(true)
                     reset()
                 }}} disabled={isSubmitting} variant="contained" sx={{ width: "100%", textTransform: "capitalize"}}>
-                    {isEditing ? "Save Note" : "Update Current Note"}
+                    {isEditing ? "Save Note" : currentNote !== "" ? "Update Current Note" : "Add Note"}
                 </Button>
                 { isEditing && (
                     <Button onClick={() => {
