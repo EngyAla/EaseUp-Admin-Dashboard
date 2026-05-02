@@ -5,7 +5,6 @@ import AppBar from '../components/TopBar';
 import SideBar from '../components/SideBar';
 import Box from '@mui/material/Box';
 import { Outlet } from 'react-router';
-import Typography from '@mui/material/Typography';
 
 
 const DrawerHeader = styled('div')(({ theme }) => ({

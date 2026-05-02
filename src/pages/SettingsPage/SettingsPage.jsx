@@ -1,12 +1,14 @@
 // @ts-nocheck
 import { Avatar, Badge, Box, Button, ButtonBase, Divider, Switch, TextField, Typography } from '@mui/material'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 // import adminImage from '../../assets/adminImage.jpg';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema } from '../../validations/validProfile';
 import { Controller } from 'react-hook-form'
+import axiosInstance from '../../api/axiosInstance';
+import { useProfile } from '../../Context/AdminProfileData/ProfileContext';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -14,45 +16,93 @@ const SettingsPage = () => {
     const fileInputRef = useRef(null);
     const [avatarSrc, setAvatarSrc] = useState(undefined);
     const [isEditing, setIsEditing] = useState(false);
-    const [fakeAdminData, setfakeAdminData] = useState({fullName: "Engy Alaa", email: "engy@gmail.com"});
+    const token = localStorage.getItem("token");
+
+    const { profile, getProfile } = useProfile();
 
     const { handleSubmit, register, control, setValue, clearErrors, reset, formState: {errors, isSubmitting } } = useForm({
         mode: 'onChange',
         resolver: zodResolver(profileSchema),
         defaultValues: {
-        full_name: fakeAdminData.fullName,
-        email: fakeAdminData.email,
-        password: "",     
-        newPassword: "", 
-        avatar: undefined,
-        emailNotifications: true
-    }
+            name: "",
+            email: "",
+            currentPassword: "",
+            newPassword: "",
+            imageUrl: "",
+            emailNotifications: true
+        }
     });
+    // console.log(adminData);
+
+    // الجزء ده عشان ابدا اعرض الداتا اللي جايه من الباك
+    useEffect(() =>{
+        if(profile?.email){
+            reset({
+                name: profile.name || "Not Set Yet",
+                email: profile.email,
+                imageUrl: profile.imageUrl,
+                emailNotifications: profile.emailNotifications ?? true
+            });
+            setAvatarSrc(profile.imageUrl);
+        }
+    }, [profile]);
     // control used for emailNotifications switch
     // setValue used for avatar input type file
 
-    const onSubmit = ({ full_name, email, password, newPassword, avatar, emailNotifications}) =>{
-        const profileData = { full_name, email, password, newPassword, avatar, emailNotifications };
-        console.log("errors:", errors);
-        console.log("Submited:", profileData);
-        setfakeAdminData({fullName: full_name, email: email});
-        reset({full_name, email, emailNotifications});
-        setIsEditing(false)
+    const onSubmit = async ({ name, email, currentPassword, newPassword, imageUrl, emailNotifications}) =>{
+        const formData = new FormData();
+
+        formData.append("name", name);
+        formData.append("email", email);
+
+        if (currentPassword) formData.append("currentPassword", currentPassword);
+        if (newPassword) formData.append("newPassword", newPassword);
+        if (imageUrl) formData.append("imageUrl", imageUrl);
+        formData.append("emailNotifications", emailNotifications);
+
+        // console.log("errors:", errors);
+        // console.log("Submited:", profileData);
+        try{
+            const response = await axiosInstance.put("Admins/update-profile-information",
+                formData, 
+                {
+                    headers: { 
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data" 
+                    }
+                }
+            );
+            if(response.status === 200){
+                await getProfile();
+            }
+            // console.log(response);
+            console.log(formData)
+        } catch(error){
+            console.log("Update Admin Profile Error: ", error)
+        }
+        // reset({name, email, emailNotifications});
+        setIsEditing(false);
     }
 
+    // هنا حولت الصوره بدل ما ابعتها ك file بعتها ك string: base64
     const handleAvatarChange = (event) => {
         const file = event.target.files?.[0];
         if (file) {
-        setValue("avatar", file, {shouldValidate: true})
-        // Read the file as a data URL
-        const reader = new FileReader();
-        reader.onload = () => {
-            setAvatarSrc(reader.result);
+            // Read the file as a data URL
+            const reader = new FileReader();
+            reader.onload = () => {
+            const base64 = reader.result;
+            setValue("imageUrl", file, {shouldValidate: true})
+            // setAvatarSrc(reader.result); 
+            setValue("imageUrl", base64, { shouldValidate: true })
+            setAvatarSrc(base64); // للعرض في ال ui
         };
         reader.readAsDataURL(file);
         }
     };
     // console.log("Current Validation Errors:", errors);
+
+
     return (
         <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: 50 }}>
             {/*  part 1  */}
@@ -90,8 +140,8 @@ const SettingsPage = () => {
                             </Button>
                             <Button onClick={() => {
                                 setAvatarSrc(undefined) // for ui not for zod
-                                setValue("avatar", undefined, {shouldValidate: true}) // for zod
-                                clearErrors("avatar")
+                                setValue("imageUrl", undefined, {shouldValidate: true}) // for zod
+                                clearErrors("imageUrl")
                                 // in default satuation html input still save the wrong value in it عشان كده مش بيظهر الصوره الخطا لو اخترناها مرتين ورا بعض
                                 if(fileInputRef) fileInputRef.current.value = ""; // if user choose the same wrong error again, show it and show errors also
                                 }} variant="text" size="small" sx={{ color: "#64748B", textTransform: "capitalize"}}>
@@ -102,7 +152,7 @@ const SettingsPage = () => {
                         </Box>
                     </Box>
                     <Box height={70}>
-                        <Typography variant='body2' sx={{ color: "#d32f2f", }}>{errors.avatar?.message}</Typography>
+                        <Typography variant='body2' sx={{ color: "#d32f2f", }}>{errors.imageUrl?.message}</Typography>
                     </Box>
                 </Box>
                 {/*  part 2  */}
@@ -114,12 +164,13 @@ const SettingsPage = () => {
                             backgroundColor: isEditing ? "" : "#dddddd57",
                         } }}
                         // slotProps={{input: { readOnly: !isEditing && true },}}
-                        type="text" id="fullName"  
+                        type="text" id="fullName" 
+                        // value={adminData.name} 
                         disabled={!isEditing}
-                        {...register('full_name')}
-                        error={!!errors.full_name}
+                        {...register('name')}
+                        error={!!errors.name}
                         />
-                        <Typography variant='body2' sx={{ color: "#d32f2f", }}>{errors.full_name?.message}</Typography>
+                        <Typography variant='body2' sx={{ color: "#d32f2f", }}>{errors.name?.message}</Typography>
                     </Box>
                     <Box flex={1} height={100}>
                         <TextField fullWidth variant="outlined" margin="dense" placeholder="admin@gmail.com" 
@@ -128,6 +179,7 @@ const SettingsPage = () => {
                             backgroundColor: isEditing ? "" : "#dddddd57",
                         } }}
                         type="email" id="email"
+                        // value={adminData.email}
                         disabled={!isEditing}
                         {...register('email')}
                         error={!!errors.email}
@@ -142,10 +194,10 @@ const SettingsPage = () => {
                             <Box flex={1} height={100}>
                                 <TextField fullWidth variant="outlined" margin="dense" placeholder="Current Password"
                                 type="password" id="password"
-                                {...register('password')}
-                                error={!!errors.password}
+                                {...register('currentPassword')}
+                                error={!!errors.currentPassword}
                                 />
-                                <Typography variant='body2' sx={{ color: "#d32f2f" }}>{errors.password?.message}</Typography>
+                                <Typography variant='body2' sx={{ color: "#d32f2f" }}>{errors.currentPassword?.message}</Typography>
                             </Box>
                             <Box flex={1} height={100}>
                                 <TextField fullWidth variant="outlined" margin="dense" placeholder="New Password"

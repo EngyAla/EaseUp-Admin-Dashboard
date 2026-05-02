@@ -54,8 +54,7 @@ const StudentProfile = () => {
                     params: {
                         studentId: studentID // Axios هيحط الـ ? والـ studentId لوحده
                     }
-                }
-                );
+                });
                 setStudentData(response.data);
                 setLoading(false)
             } catch(error){

@@ -17,6 +17,7 @@ import ProtectedRoute from './ProtectedRoute';
 import OverviewProvider from './Context/Overview/OverviewProvider';
 import PublicRoute from './PublicRoute';
 import UsersListProvider from './Context/UsersList/UsersListProvider';
+import { ProfileProvider } from './Context/AdminProfileData/ProfileContext';
 
 
 function App() {
@@ -25,28 +26,30 @@ function App() {
 
   return (
     <ThemeProvider theme={formsTheme}>
-      <UsersListProvider>
-        <OverviewProvider>
-          <Routes>  
+      <ProfileProvider>
+        <UsersListProvider>
+          <OverviewProvider>
+            <Routes>  
 
-            <Route element={<PublicRoute />}>
-              <Route path='/' element={<Login />} />
-            </Route>
-
-            <Route element={<ProtectedRoute />}>
-              <Route path='/dashboard' element={<DashboardLayout />} >
-                <Route index element={<Dashboard />} />
-                <Route path='usersList' element={<UsersList />} />
-                <Route path='crisisLogs' element={<CrisisLogs />} />
-                <Route path='studentProfile/:studentID' element={<StudentProfile />} />
-                <Route path='adminManagement' element={<AdminManagement />} />
-                <Route path='settings' element={<SettingsPage />} />
+              <Route element={<PublicRoute />}>
+                <Route path='/' element={<Login />} />
               </Route>
-            </Route>
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </OverviewProvider>
-      </UsersListProvider>
+
+              <Route element={<ProtectedRoute />}>
+                <Route path='/dashboard' element={<DashboardLayout />} >
+                  <Route index element={<Dashboard />} />
+                  <Route path='usersList' element={<UsersList />} />
+                  <Route path='crisisLogs' element={<CrisisLogs />} />
+                  <Route path='studentProfile/:studentID' element={<StudentProfile />} />
+                  <Route path='adminManagement' element={<AdminManagement />} />
+                  <Route path='settings' element={<SettingsPage />} />
+                </Route>
+              </Route>
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </OverviewProvider>
+        </UsersListProvider>
+      </ProfileProvider>
     </ThemeProvider>
   )
 }

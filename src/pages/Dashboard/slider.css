@@ -1,0 +1,22 @@
+
+.swiper {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 50px !important;
+}
+
+.swiper-slide {
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-pagination {
+    bottom: 0px !important; 
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #229083 !important; 
+}

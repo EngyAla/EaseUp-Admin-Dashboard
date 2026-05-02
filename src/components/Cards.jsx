@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 
 
 
+// @ts-ignore
 const Cards = ({data}) => {
     const {
         title,

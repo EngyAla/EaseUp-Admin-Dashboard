@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { styled, useTheme } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import List from '@mui/material/List';
@@ -21,6 +22,7 @@ import Typography from "@mui/material/Typography";
 import logo from '../assets/logo3.png'
 import Avatar from "@mui/material/Avatar";
 import { Button, Tooltip } from "@mui/material";
+import { useProfile } from "../Context/AdminProfileData/ProfileContext";
 
 
 
@@ -121,8 +123,7 @@ const SideBar = ({open, handleDrawerClose}) => {
     const theme = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
-
-    
+    const { profile } = useProfile();
 
     return (
         <Drawer variant="permanent" open={open} >
@@ -200,9 +201,9 @@ const SideBar = ({open, handleDrawerClose}) => {
             <Divider />
             <Box  sx={{display: "flex", justifyContent: open ? "space-between" : "center", alignItems: "center", gap: 1, p: 1.3}}>
                 <Box sx={{display: "flex", alignItems:"center", gap: 1 }}>
-                    <Avatar alt="Engy Alaa" src="none" sx={{width: 45, height: 45,}} />
+                    <Avatar alt={profile?.name} src={profile?.imageUrl} sx={{width: 45, height: 45,}} />
                     <Box sx={[ open? {display: "block"}: {display: "none"} ]}>
-                        <Typography variant="h6" sx={{color: "#0F172A", fontWeight: 700, fontSize: "14px"}}>Engy Alaa</Typography>
+                        <Typography variant="h6" sx={{color: "#0F172A", fontWeight: 700, fontSize: "14px"}}>{profile?.name}</Typography>
                         <Typography variant="body1" sx={{color: "#64748B", fontWeight: 400, fontSize: "12px"}}>System Admin</Typography>
                     </Box>
                 </Box>
